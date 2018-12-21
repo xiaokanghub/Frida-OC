@@ -1,6 +1,6 @@
 # Frida
 methodofclass
-
+```javascript
 console.log("[*] Started: Find All Methods of a Specific Class");
 if (ObjC.available)
 {
@@ -30,10 +30,10 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 console.log("[*] Completed: Find All Methods of a Specific Class");
-
+```
 
 record
-
+```javascript
 if (ObjC.available)
 {
     try
@@ -68,10 +68,10 @@ else
 {
     console.log("Objective-C Runtime is not available!");
 }
-
+```
 
 overwrite
-
+```javascript
 if (ObjC.available)
 {
     try
@@ -110,10 +110,10 @@ else
 {
     console.log("Objective-C Runtime is not available!");
 }
-
+```
 
 HOOK Function
-
+```javascript
 if (ObjC.available)
 {
     try
@@ -149,10 +149,10 @@ else
 {
     console.log("Objective-C Runtime is not available!");
 }
-
+```
 
 记录函数执行日志
-
+```javascript
 if (ObjC.available)
 {
     try
@@ -180,10 +180,10 @@ else
 {
     console.log("Objective-C Runtime is not available!");
 }
-
+```
 
 调用函数
-
+```javascript
 id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
 {
   __int64 v3; // x20
@@ -191,8 +191,8 @@ id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
   void *v5; // x19
     ...
 }
-
-
+```
+```javascript
 [NSString stringWithString:@"Hello World"] 
 becomes 
 var NSString = ObjC.classes.NSString; NSString.stringWithString_("Hello World");
@@ -214,3 +214,4 @@ else
 {
     console.log("Objective-C Runtime is not available!");
 }
+```
