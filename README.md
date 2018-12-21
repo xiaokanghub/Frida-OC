@@ -1,5 +1,6 @@
 # Frida
 methodofclass
+
 console.log("[*] Started: Find All Methods of a Specific Class");
 if (ObjC.available)
 {
@@ -30,7 +31,9 @@ else
 }
 console.log("[*] Completed: Find All Methods of a Specific Class");
 
+
 record
+
 if (ObjC.available)
 {
     try
@@ -66,7 +69,9 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 
+
 overwrite
+
 if (ObjC.available)
 {
     try
@@ -106,7 +111,9 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 
+
 HOOK Function
+
 if (ObjC.available)
 {
     try
@@ -143,7 +150,9 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 
+
 记录函数执行日志
+
 if (ObjC.available)
 {
     try
@@ -172,7 +181,9 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 
+
 调用函数
+
 id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
 {
   __int64 v3; // x20
