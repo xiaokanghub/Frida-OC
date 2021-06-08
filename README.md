@@ -215,3 +215,30 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 ```
+print NSString  
+```
+Interceptor.attach(ObjC.classes.NSString['+ stringWithUTF8String:'].implementation, {
+    onEnter: function (args) {
+      console.log('[+] Hooked +[NSString stringWithUTF8String:] ');
+    },
+    onLeave: function (retval) {
+      var str = new ObjC.Object(ptr(retval)).toString()
+      console.log('[+] Returning [NSString stringWithUTF8String:] -> ', str);
+      return retval;
+    }
+});
+
+Interceptor.attach(ObjC.classes.__NSCFString['- isEqualToString:'].implementation, {
+    onEnter: function (args) {
+      var str = new ObjC.Object(ptr(args[2])).toString()
+      console.log('[+] Hooked __NSCFString[- isEqualToString:] ->' , str);
+    }
+});
+
+Interceptor.attach(ObjC.classes.NSTaggedPointerString['- isEqualToString:'].implementation, {
+    onEnter: function (args) {
+      var str = new ObjC.Object(ptr(args[2])).toString()
+      console.log('[+] Hooked NSTaggedPointerString[- isEqualToString:] ->' , str);
+    }
+});
+```
