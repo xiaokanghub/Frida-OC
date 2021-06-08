@@ -216,7 +216,7 @@ else
 }
 ```
 print NSString  
-```
+```javascript
 Interceptor.attach(ObjC.classes.NSString['+ stringWithUTF8String:'].implementation, {
     onEnter: function (args) {
       console.log('[+] Hooked +[NSString stringWithUTF8String:] ');
