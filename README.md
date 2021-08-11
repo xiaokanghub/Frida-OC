@@ -243,7 +243,7 @@ Interceptor.attach(ObjC.classes.NSTaggedPointerString['- isEqualToString:'].impl
 });
 ```
 ## 内存断点
-```
+```javascript
 Process.setExceptionHandler(function(exp) {
   console.warn(JSON.stringify(Object.assign(exp, { _lr: DebugSymbol.fromAddress(exp.context.lr), _pc: DebugSymbol.fromAddress(exp.context.pc) }), null, 2));
   Memory.protect(exp.memory.address, Process.pointerSize, 'rw-');
