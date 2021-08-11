@@ -1,5 +1,5 @@
 # Frida
-methodofclass
+## methodofclass
 ```javascript
 console.log("[*] Started: Find All Methods of a Specific Class");
 if (ObjC.available)
@@ -32,7 +32,7 @@ else
 console.log("[*] Completed: Find All Methods of a Specific Class");
 ```
 
-record
+## record
 ```javascript
 if (ObjC.available)
 {
@@ -70,7 +70,7 @@ else
 }
 ```
 
-overwrite
+## overwrite
 ```javascript
 if (ObjC.available)
 {
@@ -112,7 +112,7 @@ else
 }
 ```
 
-HOOK Function
+## HOOK Function
 ```javascript
 if (ObjC.available)
 {
@@ -151,7 +151,7 @@ else
 }
 ```
 
-记录函数执行日志
+## 记录函数执行日志
 ```javascript
 if (ObjC.available)
 {
@@ -182,7 +182,7 @@ else
 }
 ```
 
-调用函数
+## 调用函数
 ```javascript
 id __cdecl +[NSString stringWithStrings:](NSString_meta *self, SEL a2, id a3)
 {
@@ -215,7 +215,7 @@ else
     console.log("Objective-C Runtime is not available!");
 }
 ```
-print NSString  
+## Print NSString  
 ```javascript
 Interceptor.attach(ObjC.classes.NSString['+ stringWithUTF8String:'].implementation, {
     onEnter: function (args) {
@@ -242,3 +242,26 @@ Interceptor.attach(ObjC.classes.NSTaggedPointerString['- isEqualToString:'].impl
     }
 });
 ```
+## 内存断点
+```
+Process.setExceptionHandler(function(exp) {
+  console.warn(JSON.stringify(Object.assign(exp, { _lr: DebugSymbol.fromAddress(exp.context.lr), _pc: DebugSymbol.fromAddress(exp.context.pc) }), null, 2));
+  Memory.protect(exp.memory.address, Process.pointerSize, 'rw-');
+  // can also use `new NativeFunction(Module.findExportByName(null, 'mprotect'), 'int', ['pointer', 'uint', 'int'])(parseInt(this.context.x2), 2, 0)`
+  return true; // goto PC 
+});
+
+Interceptor.attach(funcPtr, {
+  onEnter: function (args) {
+    console.log('onEnter', JSON.stringify({
+      x2: this.context.x2,
+      mprotect_ret: Memory.protect(this.context.x2, 2, '---'),
+      errno: this.errno
+    }, null, 2));
+  },
+  onLeave: function (retval) {
+    console.log('onLeave');
+  }
+});
+```
+
